@@ -84,6 +84,7 @@ function renderView() {
                     <div class="item-icon note"><i class="fas fa-file-alt"></i></div>
                     <div class="item-details">
                         <div class="item-title">${escapeHTML(item.title)}</div>
+                        <div class="item-content-preview">${escapeHTML(item.content)}</div>
                         <div class="item-date">${formatDate(item.createdAt)}</div>
                     </div>
                 `;
