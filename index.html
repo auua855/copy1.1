@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>コピペメモ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <button id="backBtn" class="icon-btn hidden"><i class="fas fa-arrow-left"></i></button>
+            <div id="headerTitle" class="header-title">ホーム /</div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="mainContent" class="main-content">
+            <ul id="listView" class="list-view">
+                <!-- List items will be injected here -->
+            </ul>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button id="navFolderBtn" class="nav-btn">
+                <i class="fas fa-folder-plus"></i>
+                <span>フォルダ</span>
+            </button>
+            <button id="navClipBtn" class="nav-btn">
+                <i class="fas fa-clipboard"></i>
+                <span>クリップ</span>
+            </button>
+            <button id="navMenuBtn" class="nav-btn">
+                <i class="fas fa-bars"></i>
+                <span>メニュー</span>
+            </button>
+        </nav>
+
+        <!-- Modals -->
+
+        <!-- Create Folder Modal -->
+        <div id="folderModal" class="modal-overlay hidden">
+            <div class="modal">
+                <h3>新規フォルダ作成</h3>
+                <input type="text" id="folderNameInput" placeholder="フォルダ名を入力">
+                <div class="modal-actions">
+                    <button id="cancelFolderBtn" class="btn btn-secondary">キャンセル</button>
+                    <button id="saveFolderBtn" class="btn btn-primary">決定</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Item Modal -->
+        <div id="itemModal" class="modal-overlay hidden">
+            <div class="modal">
+                <h3>新規メモ作成</h3>
+                <select id="itemFolderSelect" class="form-control">
+                    <option value="">フォルダを選択</option>
+                    <!-- Folder options injected here -->
+                </select>
+                <input type="text" id="itemTitleInput" class="form-control" placeholder="タイトル（パスワード名など）">
+                <textarea id="itemBodyInput" class="form-control" placeholder="本文（コピーする内容）" rows="4"></textarea>
+                <div class="modal-actions">
+                    <button id="cancelItemBtn" class="btn btn-secondary">キャンセル</button>
+                    <button id="saveItemBtn" class="btn btn-primary">決定</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Modal -->
+        <div id="menuModal" class="modal-overlay hidden">
+            <div class="modal menu-modal">
+                <h3>メニュー</h3>
+                <ul class="menu-list">
+                    <li id="menuImportBtn"><i class="fas fa-file-import"></i> バックアップを復元 (JSON/CSV)</li>
+                    <li id="menuExportBtn"><i class="fas fa-file-export"></i> バックアップを保存 (JSON)</li>
+                    <li id="menuExportCsvBtn"><i class="fas fa-file-csv"></i> 全データをCSVで書き出す</li>
+                    <li id="menuClearDataBtn" class="danger-text"><i class="fas fa-trash-alt"></i> 全データ削除</li>
+                </ul>
+                <div class="modal-actions center">
+                    <button id="closeMenuBtn" class="btn btn-secondary">閉じる</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden input for file upload -->
+        <input type="file" id="importFileInput" accept=".json,.csv" style="display: none;">
+
+        <!-- Toast Notification -->
+        <div id="toast" class="toast">コピーしました</div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js');
+            });
+        }
+    </script>
+</body>
+
+</html>
